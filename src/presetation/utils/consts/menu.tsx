@@ -1,6 +1,5 @@
 import { HiOutlineCube, HiOutlineViewGrid } from 'react-icons/hi'
 export const MENU_SIDERBAR_BODY = [
-
   {
     key: 'dashboard',
     label: 'Dashboard',

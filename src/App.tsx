@@ -1,7 +1,8 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom"
 import Layout from "./shared/components/Layout"
-import Dashboard from "./presetation/pages/Dashboard/Dashboard"
-import Products from "./presetation/pages/Products/Products"
+import Dashboard from "./presetation/pages/private/Dashboard/Dashboard"
+import Products from "./presetation/pages/private/Products/Products"
+
 
 export default function App() {
   return (
