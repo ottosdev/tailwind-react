@@ -12,6 +12,5 @@ export default function Avatar({ name }: Props) {
         <span className='sr-only'>{name}</span>
       </div>
     </Menu.Button>
-
   )
 }
