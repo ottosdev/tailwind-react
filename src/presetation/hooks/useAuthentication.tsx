@@ -7,7 +7,6 @@ interface AuthContextProps{
     logout: () => void
 }
 
-
 interface AuthProviderProps{
     children: ReactNode
 }
