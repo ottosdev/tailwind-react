@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { customGet, customPost } from "@/infra/service/api.ts";
+import {useState, useEffect, useCallback} from 'react';
+import {customDel, customGet, customPost, customPut} from "@/infra/service/api.ts";
 import {IProduct} from "@/presetation/components/Products/Interface";
 
 
@@ -9,6 +9,7 @@ const useProducts = (itemsPerPage = 10) => {
     const [send, setSend] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(products.length / itemsPerPage);
+    const [editProduct, setEditProduct] = useState<IProduct | null>(null);
 
     const fetchProducts = useCallback(async () => {
         setLoading(true);
@@ -22,11 +23,16 @@ const useProducts = (itemsPerPage = 10) => {
         }
     }, []);
 
-    const addProduct = async (data: any ) => {
+    const addProduct = async (data: any) => {
         setSend(true);
         try {
-            const res = await customPost('', { title: data.title });
-            setProducts(res.data.products);
+            if (!editProduct) {
+                const res = await customPost('', {title: data.title});
+                setProducts(res.data.products);
+            } else {
+                const res = await customPut(`${editProduct.id}`, {title: data.title});
+                setProducts(res.data.products);
+            }
         } catch (error) {
             console.error(error);
         } finally {
@@ -34,9 +40,19 @@ const useProducts = (itemsPerPage = 10) => {
         }
     };
 
+    async function removeProduct(id: string) {
+        try {
+            const res = await customDel(`/${id}`);
+            setProducts(res.data.products);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     function goToPage(pageNumber: number) {
         setCurrentPage(pageNumber);
     }
+
     useEffect(() => {
         fetchProducts();
     }, [fetchProducts]);
@@ -44,12 +60,15 @@ const useProducts = (itemsPerPage = 10) => {
     return {
         products,
         loading,
+        removeProduct,
         addProduct,
         currentPage,
         setCurrentPage,
         totalPages,
         goToPage,
-        send
+        send,
+        setEditProduct,
+        editProduct
     };
 };
 

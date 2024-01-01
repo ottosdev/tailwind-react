@@ -5,7 +5,7 @@ type Product = {
     title: string;
 };
 
-export function makeServer({ environment = "development" } = {}) {
+export function makeServer({environment = "development"} = {}) {
     return createServer({
         environment,
         models: {
@@ -31,12 +31,32 @@ export function makeServer({ environment = "development" } = {}) {
                 return schema.all('product');
             });
 
-            this.post('/products', (schema, request:Request) => {
-                console.log(request)
+            this.post('/products', (schema, request: Request) => {
                 let newProduct = JSON.parse(request.requestBody);
                 schema.create("product", newProduct);
                 return schema.all("product");
             });
+
+            // @ts-ignore
+            this.delete('/products/:id', (schema, request: Request) => {
+                let id = request.params.id;
+                let product = schema.find('product', id);
+                if (product) {
+                    product.destroy();
+                    return schema.all("product");
+                }
+            });
+
+            // @ts-ignore
+            this.put('/products/:id', (schema,request) => {
+                let id = request.params.id;
+                let newProduct = JSON.parse(request.requestBody);
+                let editProduct = schema.find('product', id);
+                if(editProduct) {
+                    editProduct.update(newProduct)
+                    return schema.all('product');
+                }
+            })
         },
     });
 }

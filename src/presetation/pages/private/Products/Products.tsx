@@ -1,23 +1,34 @@
 import Pagination from "@/presetation/components/Products/Pagination/Pagination.tsx";
-import {SendButton} from "@/shared/components/Button/Button.tsx";
-import {CustomInput} from "@/shared/components/Input/Input.tsx";
+import {SendButton} from "@/shared/components/Form/Button/Button.tsx";
+import {CustomInput} from "@/shared/components/Form/Input/Input.tsx";
 import useProducts from "@/presetation/components/Products/hooks/useProducts.ts";
 import {useForm} from "react-hook-form";
 import {Spinner} from "@/shared/components/Spinner/Spinner.tsx";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {productSchema} from "@/presetation/components/Products/rules";
-import {IFormInputs} from "@/presetation/components/Products/Interface";
+import {IFormInputs, IProduct} from "@/presetation/components/Products/Interface";
+import { FaEdit, FaTrash} from 'react-icons/fa'
+
 
 export default function Products() {
-    const {products, loading, currentPage, totalPages, goToPage, send, addProduct} = useProducts();
+    const {products, loading, currentPage, totalPages, goToPage, send, addProduct, removeProduct, setEditProduct, editProduct} = useProducts();
 
-    const {register, handleSubmit, reset} = useForm<IFormInputs>({
+    const {register, handleSubmit, reset, setValue} = useForm<IFormInputs>({
         resolver: yupResolver(productSchema)
     });
 
-    async function onSubmit(data: IFormInputs) {
-        await addProduct(data);
-        reset();
+    async function handleDelete(id: string) {
+        await removeProduct(id);
+    }
+
+    async function onSubmit(product: IFormInputs) {
+        await addProduct(product);
+        reset()
+    }
+
+    function handleEdit(product: IProduct) {
+        setEditProduct(product)
+        setValue('title', product.title);
     }
 
     const currentItems = products.slice((currentPage - 1) * 10, currentPage * 10);
@@ -34,7 +45,7 @@ export default function Products() {
         <div>
             <form onSubmit={handleSubmit(onSubmit)} className='flex gap-4 '>
                 <CustomInput register={register} name='title' placeholder='Informe um titulo'/>
-                <SendButton type="submit" loading={send}/>
+                <SendButton type="submit" loading={send} title={editProduct ? 'Editando...': 'Enviando...'}/>
             </form>
 
 
@@ -51,8 +62,13 @@ export default function Products() {
                     <tr key={item.id}>
                         <td className="border px-8 py-4">{item.id}</td>
                         <td className="border px-8 py-4">{item.title}</td>
-                        <td className="border px-8 py-4">
-
+                        <td className="border px-8 py-4 flex gap-4">
+                            <button onClick={() => {handleEdit(item)}}>
+                                <FaEdit className='text-yellow-500'/>
+                            </button>
+                            <button onClick={() => handleDelete(item.id)}>
+                                <FaTrash className='text-red-500'/>
+                            </button>
                         </td>
                     </tr>
                 )) : null}

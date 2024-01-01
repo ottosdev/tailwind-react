@@ -7,7 +7,7 @@ interface Props {
 function Pagination({goToPage, currentPage, totalPages}: Props) {
 
     return (
-        <div className="flex justify-center gap-4 mt-4">
+        <div className="flex justify-between gap-4 mt-4">
             <button
                 onClick={() => goToPage(currentPage - 1)}
                 disabled={currentPage === 1}
