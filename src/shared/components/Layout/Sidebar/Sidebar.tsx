@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FcBullish } from "react-icons/fc";
-import { MENU_SIDERBAR_BODY, MENU_SIDERBAR_BOOTOM } from "../../../../presetation/utils/consts/menu.tsx";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import { HiOutlineLogout, HiArrowCircleRight, HiArrowCircleLeft } from "react-icons/hi";
 import { useState } from "react";
 import { SiderbarLink } from "./SidebarLink.tsx";
+import {MENU_SIDERBAR_BODY, MENU_SIDERBAR_BOOTOM} from "@/presetation/utils/consts/menu.tsx";
+import {useAuth} from "@/presetation/hooks/useAuthentication.tsx";
 
 const linkClasses = 'flex items-center gap-2 font-light px-3 py-2 hover:bg-neutral-700 hover:no-underline active:bg-neutral-600 rounded-sm text-base';
 export default function Sidebar() {
@@ -14,6 +15,8 @@ export default function Sidebar() {
   function handleOpen() {
     setOpen(!open)
   }
+
+    const {logout} = useAuth()
   return (
     <div className={`flex flex-col ${open ? 'w-60' : 'w-[5.5rem]'} bg-neutral-900 text-white p-3 duration-300 relative`}>
 
@@ -44,7 +47,7 @@ export default function Sidebar() {
           </div>
         ))}
         <div>
-          <Link to="/" className={classNames('text-red-500', linkClasses)}>
+          <Link to="" onClick={logout}  className={classNames('text-red-500', linkClasses)}>
             <span>
               <HiOutlineLogout />
             </span>

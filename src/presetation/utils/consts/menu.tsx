@@ -3,7 +3,7 @@ export const MENU_SIDERBAR_BODY = [
   {
     key: 'dashboard',
     label: 'Dashboard',
-    path: '/',
+    path: '/dashboard',
     icon: <HiOutlineViewGrid />
   },
   {

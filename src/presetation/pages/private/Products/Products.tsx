@@ -62,13 +62,17 @@ export default function Products() {
                     <tr key={item.id}>
                         <td className="border px-8 py-4">{item.id}</td>
                         <td className="border px-8 py-4">{item.title}</td>
-                        <td className="border px-8 py-4 flex gap-4">
-                            <button onClick={() => {handleEdit(item)}}>
-                                <FaEdit className='text-yellow-500'/>
-                            </button>
-                            <button onClick={() => handleDelete(item.id)}>
-                                <FaTrash className='text-red-500'/>
-                            </button>
+                        <td className="border px-8 py-4 ">
+                            <div className='flex gap-3'>
+                                <button onClick={() => {
+                                    handleEdit(item)
+                                }}>
+                                    <FaEdit className='text-yellow-500'/>
+                                </button>
+                                <button onClick={() => handleDelete(item.id)}>
+                                    <FaTrash className='text-red-500'/>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 )) : null}

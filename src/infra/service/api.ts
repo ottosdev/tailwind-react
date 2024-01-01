@@ -1,10 +1,7 @@
 import axios from 'axios';
 
-const fake = '/api/products';
-// const develop = '';
-
 const apiClient = axios.create({
-    baseURL: fake,
+    baseURL: import.meta.env.VITE_FAKE,
 });
 
 export const customGet = (path: string) => {

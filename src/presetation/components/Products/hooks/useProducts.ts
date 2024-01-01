@@ -14,7 +14,7 @@ const useProducts = (itemsPerPage = 10) => {
     const fetchProducts = useCallback(async () => {
         setLoading(true);
         try {
-            const res = await customGet('');
+            const res = await customGet('products');
             setProducts(res.data.products);
         } catch (error) {
             console.error(error);
@@ -27,10 +27,10 @@ const useProducts = (itemsPerPage = 10) => {
         setSend(true);
         try {
             if (!editProduct) {
-                const res = await customPost('', {title: data.title});
+                const res = await customPost('products', {title: data.title});
                 setProducts(res.data.products);
             } else {
-                const res = await customPut(`${editProduct.id}`, {title: data.title});
+                const res = await customPut(`products/${editProduct.id}`, {title: data.title});
                 setProducts(res.data.products);
             }
         } catch (error) {
@@ -42,7 +42,7 @@ const useProducts = (itemsPerPage = 10) => {
 
     async function removeProduct(id: string) {
         try {
-            const res = await customDel(`/${id}`);
+            const res = await customDel(`products/${id}`);
             setProducts(res.data.products);
         } catch (err) {
             console.log(err)
