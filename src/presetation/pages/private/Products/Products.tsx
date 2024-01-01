@@ -45,7 +45,7 @@ export default function Products() {
         <div>
             <form onSubmit={handleSubmit(onSubmit)} className='flex gap-4 '>
                 <CustomInput register={register} name='title' placeholder='Informe um titulo'/>
-                <SendButton type="submit" loading={send} title={editProduct ? 'Editando...': 'Enviando...'}/>
+                <SendButton type="submit" loading={send} editTitle={editProduct ? 'Editando...': 'Enviando...'} title='Enviar'/>
             </form>
 
 

@@ -32,7 +32,6 @@ function Signin() {
     }
 
     return <div className='h-[100vh] flex flex-col justify-center items-center gap-5'>
-
         <div className='w-[30rem] shadow-2xl p-4 rounded-md'>
             <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
                 <CustomInput name='email' placeholder='E-mail' register={register} erros={errors.email}/>
