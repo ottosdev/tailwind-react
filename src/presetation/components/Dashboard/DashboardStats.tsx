@@ -2,8 +2,6 @@ import {ReactNode} from "react";
 import {IoAlarm, IoAnalyticsSharp, IoAperture, IoBagHandle} from 'react-icons/io5'
 
 function DashboardStats() {
-
-
     return (
         <div className='flex gap-4 w-full'>
             <BoxWrapper>

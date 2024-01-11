@@ -24,7 +24,7 @@ function Signin() {
     })
 
     function onSubmit(data: IForm) {
-        signin(data.email, data.password)
+        signin(data.email, data.password);
     }
 
     if (isAuthenticated) {

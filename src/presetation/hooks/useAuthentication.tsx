@@ -34,7 +34,7 @@ function AuthProvider({children} : AuthProviderProps) {
     useEffect(() => {
         const token = localStorage.getItem('@token');
         if (token) {
-            setAuthenticated(JSON.parse(token));
+            setAuthenticated(true);
         } else {
             setAuthenticated(false);
         }
@@ -49,6 +49,7 @@ function AuthProvider({children} : AuthProviderProps) {
 
 export default AuthProvider;
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
     return useContext(AuthContext);
 }
